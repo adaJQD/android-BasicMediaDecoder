@@ -21,8 +21,10 @@ import android.animation.TimeAnimator;
 import android.app.Activity;
 import android.media.MediaCodec;
 import android.media.MediaExtractor;
+import android.media.MediaFormat;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -118,6 +120,9 @@ public class MainActivity extends Activity {
             // it's possible that the stream would contain multiple tracks, but this
             // sample assumes that we just want to play the first one.
             for (int i = 0; i < nTracks; ++i) {
+                MediaFormat trackFormat = mExtractor.getTrackFormat(i);
+                Log.d("jqd", trackFormat.toString());
+                mAttribView.append(trackFormat.toString()+"\n");
                 // Try to create a video codec for this track. This call will return null if the
                 // track is not a video track, or not a recognized video format. Once it returns
                 // a valid MediaCodecWrapper, we can break out of the loop.
